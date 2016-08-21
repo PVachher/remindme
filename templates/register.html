@@ -65,22 +65,36 @@
     <!-- Header -->
     <header>
 
-        <div class="container">
 
-                                                            <img src="http://www.myiconfinder.com/uploads/iconsets/256-256-4d0e5b9f9bc31c22ccb0deccd4b9b625.png" height="250">
-<br>
             <div class="row">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+
+                                        <font face="helvetica" color="black" size="30"><b>Register</b></font>
+
                 <div class="col-lg-12">
                     <div class="intro-text">
                     <form action="" method="post">
-                        <font color="black"> <h1>When should we remind you? </h1> </font>
-                        <h3><font face="courier"><input type="datetime-local" name="Reminder" style="font-size:40px; color: #000000;"></font></h3>
-                        <b><font face="helvetica" size="4"><input type="submit" style="color: #000000;" placeholder="Next" name="Next" value="NEXT"></font></b>
+                        <h3><input type="text" placeholder="First Name" name="FirstName"  style="font-size:20px; color: #000000;" value="{{ v1 }}" required></h3>
+                        <h3><input type="text" placeholder="Last Name" name="LastName"  style="font-size:20px; color: #000000;" value="{{ v2 }}" required></font></h3>
+                        <h3><input type="text" placeholder="Username" name="username"  style="font-size:20px; color: #000000;" value="{{ v3 }}" required></font></h3>
+                        <h3><input type="number" placeholder="Mobile Number" name="mobile"  style="font-size:20px; color: #000000;" value="{{ v4 }}" required></font></h3>
+                        <h3><input type="email" placeholder="Email Address" name="email" style="font-size:20px; color: #000000;" value="{{ v5 }}" required></font></h3>
+                        <h3><input type="password" placeholder="Password" name="password" style="font-size:20px; color: #000000;" required></font></h3>
+                        <h3><input type="password" placeholder="Re-Enter Password" name="repassword" style="font-size:20px; color: #000000;" required></font></h3>
+                        <br>
+                        <b><font face="arial" size="4"><input type="submit" style="color: #000000; font-size:20px" placeholder="Next" name="Next" value="Register"></font></b>
                     </form>
-                        
-
-
+                        <br>
+                        <h3>{{ error }}</h3>
+<br>
                     </div>
+
                 </div>
             </div>
         </div>

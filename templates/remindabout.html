@@ -52,14 +52,26 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
+
                 </button>
                 <a class="navbar-brand" href="#page-top">Remind Me</a></div>
-
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="page-scroll">
+                                        <a>Hello {{ name1 }}!</a>
+                                    </li>
+                                    <li class="page-scroll">
+                                         <form action="" method="post">
+    				<a><input class="btn btn-success"type="submit" name="ok" placeholder="Log Out" value="Log Out" align="right"></a>
+</form>
+                                    </li>
+                                </ul>
+                            </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-
             <!-- /.navbar-collapse -->
         </div>
         <!-- /.container-fluid -->
+
     </nav>
 
     <!-- Header -->
@@ -75,6 +87,7 @@
                     <form action="" method="post">
                         <font color="black"> <h1>What Should We Remind you about? </h1> </font>
                         <h3><font face="courier"><input type="text" name="Reminder" style="font-size:40px; color: #000000;"></font></h3>
+                        <b><font face="helvetica" size="4"><input type="submit" style="color: #000000;" placeholder="Next" name="Next" value="NEXT"></font></b>
 
                     </form>
                         
