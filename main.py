@@ -1,5 +1,5 @@
 from flask import *
-from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname
+from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication
 app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
@@ -47,6 +47,7 @@ def register():
                         if request.form['password'] == request.form['repassword']:
                             add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'])
                             print "PUSHED"
+                            mail_engine_authentication(request.form['FirstName'],request.form['email'],'1234')
                             return redirect(url_for('login'))
                         else:
                             error = "Passwords Don't Match"
