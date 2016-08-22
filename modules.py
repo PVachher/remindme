@@ -12,6 +12,47 @@ def add_user(first_name, last_name, username, mobile, email, password,authcode,a
         db.rollback()
     db.close()
 
+def updateauth(username):
+    import pymysql
+    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    cursor = db.cursor()
+    sql = "UPDATE userdb SET authlevel= 1\
+                   WHERE username = '%s'" % (username.lower())
+    try:
+        cursor.execute(sql)
+        db.commit()
+    except:
+        db.rollback()
+        print "ERROR Updating Auth"
+
+def getauthcode(username):
+    import pymysql
+    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    cursor = db.cursor()
+    sql = "SELECT * FROM userdb \
+                   WHERE username = '%s'" % (username.lower())
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        return results[0][-2]
+    except:
+        print "ERROR updating Auth"
+
+def checkauth(username):
+    import pymysql
+    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    cursor = db.cursor()
+    sql = "SELECT * FROM userdb \
+               WHERE username = '%s'" % (username.lower())
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        if results[0][-1] == '0':
+            return False
+        else:
+            return True
+    except:
+        print "ERROR CHECKING Auth"
 
 
 def checkusername(username):
@@ -84,7 +125,7 @@ def checklogin(username,password):
     try:
         cursor.execute(sql)
         results = cursor.fetchall()
-        if results[0][-1] == password:
+        if results[0][-3] == password:
             flag = 1
         else:
             flag = 0

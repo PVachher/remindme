@@ -1,18 +1,36 @@
 from flask import *
-from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication
+from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth
 import random
 app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def home():
+    error = ""
     if 'username' in session:
         username_session = escape(session['username']).capitalize()
-        if request.method =='POST':
-            if request.form['ok'] == 'Log Out':
-                session.clear()
-                return redirect(url_for("login"))
+        if checkauth(username_session) == True:
+            if request.method =='POST':
+                if request.form['ok'] == 'Log Out':
+                    session.clear()
+                    return redirect(url_for("login"))
 
-        return render_template('remindabout.html', name=username_session,name1 = getname(username_session))
+            return render_template('remindabout.html', name=username_session,name1 = getname(username_session))
+        else:
+            if request.method == 'POST':
+                string1 = ""
+                string1 += request.form['val1']
+                string1 += request.form['val2']
+                string1 += request.form['val3']
+                string1 += request.form['val4']
+                print string1
+                if string1 == getauthcode(username_session):
+                    updateauth(username_session)
+                    return redirect(url_for('home'))
+                else:
+                    error = "INVALID AUTH CODE"
+
+            return render_template('authentication.html', name=username_session, name1= getname(username_session),error= error)
+
     return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
