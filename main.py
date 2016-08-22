@@ -1,5 +1,6 @@
 from flask import *
 from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication
+import random
 app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
@@ -45,9 +46,9 @@ def register():
                 if checkmob(request.form['mobile']) == False:
                     if checkemail(request.form['email']) == False:
                         if request.form['password'] == request.form['repassword']:
-                            add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'])
-                            print "PUSHED"
-                            mail_engine_authentication(request.form['FirstName'],request.form['email'],'1234')
+                            generatedid = random.randint(1000,9999)
+                            add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'],str(generatedid),str(0))
+                            mail_engine_authentication(request.form['FirstName'],request.form['email'], str(generatedid))
                             return redirect(url_for('login'))
                         else:
                             error = "Passwords Don't Match"

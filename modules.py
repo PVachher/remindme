@@ -1,9 +1,9 @@
-def add_user(first_name, last_name, username, mobile, email, password):
+def add_user(first_name, last_name, username, mobile, email, password,authcode,authlevel):
     import pymysql
     db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
     cursor = db.cursor()
-    sql = "INSERT INTO userdb (FirstName,LastName,Username,MobileNumber,Email,Password) " \
-          "VALUES ('%s','%s','%s','%d','%s','%s')" % (first_name, last_name, username,mobile,email,password)
+    sql = "INSERT INTO userdb (FirstName,LastName,Username,MobileNumber,Email,Password,authcode,authlevel) " \
+          "VALUES ('%s','%s','%s','%d','%s','%s','%s','%s')" % (first_name, last_name, username,mobile,email,password,authcode,authlevel)
     try:
         cursor.execute(sql)
         db.commit()
@@ -11,6 +11,7 @@ def add_user(first_name, last_name, username, mobile, email, password):
     except:
         db.rollback()
     db.close()
+
 
 
 def checkusername(username):
