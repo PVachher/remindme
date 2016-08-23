@@ -12,6 +12,21 @@ def add_user(first_name, last_name, username, mobile, email, password,authcode,a
         db.rollback()
     db.close()
 
+def putreminder(username, data, date, time):
+    import pymysql
+    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    cursor = db.cursor()
+    sql = "INSERT INTO reminder (username, reminder_data,reminder_date,reminder_time) " \
+          "VALUES ('%s','%s','%s','%s')" % (username,data,date,time)
+    try:
+        cursor.execute(sql)
+        db.commit()
+        print "Reminder Added"
+    except:
+        db.rollback()
+    db.close()
+
+
 def updateauth(username):
     import pymysql
     db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")

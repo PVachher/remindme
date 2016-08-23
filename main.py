@@ -1,7 +1,8 @@
 from flask import *
-from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth
+from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth, putreminder
 import random
 app = Flask(__name__)
+database = {}
 
 @app.route('/', methods=['GET','POST'])
 def home():
@@ -9,12 +10,7 @@ def home():
     if 'username' in session:
         username_session = escape(session['username']).capitalize()
         if checkauth(username_session) == True:
-            if request.method =='POST':
-                if request.form['ok'] == 'Log Out':
-                    session.clear()
-                    return redirect(url_for("login"))
-
-            return render_template('remindabout.html', name=username_session,name1 = getname(username_session))
+            return redirect(url_for('remindabout'))
         else:
             if request.method == 'POST':
                 string1 = ""
@@ -32,6 +28,37 @@ def home():
             return render_template('authentication.html', name=username_session, name1= getname(username_session),error= error)
 
     return redirect(url_for('login'))
+
+
+@app.route('/remindabout', methods=['GET','POST'])
+def remindabout():
+    error = ""
+    if 'username' in session:
+        global database
+        username_session = escape(session['username']).capitalize()
+        (database)[username_session] = ""
+        if checkauth(username_session) == True:
+            if request.method =='POST':
+                database[username_session] = request.form['Reminder']
+                return redirect(url_for('remindwhen'))
+        else:
+            return redirect(url_for('home'))
+    return render_template('remindabout.html', name=username_session,name1=getname(username_session))
+
+@app.route('/remindwhen', methods=['GET','POST'])
+def remindwhen():
+    global database
+    error = ""
+    if 'username' in session:
+        username_session = escape(session['username']).capitalize()
+        if checkauth(username_session) == True:
+            if request.method =='POST':
+                putreminder(username_session.lower(),database[username_session],request.form['Reminder'][:10], request.form['Reminder'][11:])
+        else:
+            return redirect(url_for('home'))
+    return render_template('remindwhen.html', name=username_session,name1=getname(username_session))
+
+
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
