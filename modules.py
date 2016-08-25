@@ -12,6 +12,22 @@ def add_user(first_name, last_name, username, mobile, email, password,authcode,a
         db.rollback()
     db.close()
 
+def getdate():
+    import time
+    localtime = time.localtime(time.time())
+    year = localtime[0]
+    month =localtime[1]
+    date = localtime[2]
+    return (str(date)+":"+str(month)+":"+str(year))
+
+def gettime():
+    import time
+    localtime = time.localtime(time.time())
+    hour = localtime[3]
+    minute = localtime[4]
+    seconds = localtime[5]
+    return (str(hour)+":"+str(minute) + ":" + str(seconds))
+
 def putreminder(username, data, date, time):
     import pymysql
     db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")

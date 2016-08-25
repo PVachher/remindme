@@ -1,6 +1,7 @@
 from flask import *
-from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth, putreminder
+from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth, putreminder, getdate,gettime
 import random
+import time
 app = Flask(__name__)
 database = {}
 
@@ -39,8 +40,12 @@ def remindabout():
         (database)[username_session] = ""
         if checkauth(username_session) == True:
             if request.method =='POST':
-                database[username_session] = request.form['Reminder']
-                return redirect(url_for('remindwhen'))
+                if 'ok' in request.form:
+                    session.clear()
+                    return redirect(url_for("login"))
+                else:
+                    database[username_session] = request.form['Reminder']
+                    return redirect(url_for('remindwhen'))
         else:
             return redirect(url_for('home'))
     return render_template('remindabout.html', name=username_session,name1=getname(username_session))
@@ -53,10 +58,30 @@ def remindwhen():
         username_session = escape(session['username']).capitalize()
         if checkauth(username_session) == True:
             if request.method =='POST':
-                putreminder(username_session.lower(),database[username_session],request.form['Reminder'][:10], request.form['Reminder'][11:])
+                got = request.form['Reminder']
+                final = ""
+                date = got[:10]
+                time1 = got[11:]
+                z = date.split('-')
+                final += z[-1]
+                final += ":"
+                final += str(int(z[-2]))
+                final += ":"
+                final += z[-3]
+                time1 += ":00"
+                print final, getdate()
+                print time1, gettime()
+                final = final[::-1]
+                file1 = getdate()[::-1]
+                if final > file1:
+                    putreminder(username_session.lower(),database[username_session],date, time1)
+                elif final == file1 and time1 > gettime():
+                    putreminder(username_session.lower(),database[username_session],date, time1)
+                else:
+                    error = "Invalid Date/Time"
         else:
             return redirect(url_for('home'))
-    return render_template('remindwhen.html', name=username_session,name1=getname(username_session))
+    return render_template('remindwhen.html', name=username_session,name1=getname(username_session),error=error)
 
 
 
