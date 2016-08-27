@@ -179,37 +179,30 @@ def checklogin(username,password):
         return "NoUser"
     db.close()
 
-def mail_engine_authentication(name,emailid,authenticationid):
+def mail_engine_authentication(name,username,emailid,authenticationid):
     import smtplib
     import string
     import traceback
     import sys
-
     fromaddr = 'remindme@prateekvachher.in'
     password = 'Welcome123'
     toaddrs  = emailid
     server_smtp = 'host5.dnsinweb.com'
     port_smtp = 465
-
-    msg = 'Test message ^^'
     BODY = string.join((
             "From: %s" % fromaddr,
             "To: %s" % toaddrs,
-            "Subject: %s" % 'Email Verification for Remind Me Web App' ,
+            "Subject: %s" % 'Email Verification Required' ,
             "",
-            'Email Verification for %s. This is to Inform you that your verification id is: %s'  % (name, authenticationid)
+            'Hello %s, \nThanks for signing up to RemindMe! By having a RemindMe account you can set time based reminders without the need of any 3rd Party Applications. \n\nBefore you access your account, you will need to verify your email address. You can do so by logging into your account and entering the Verification ID as %s. \n\nJust a friendly reminder, your account details are: \nUsername: %s \nEmail ID: %s\nhttp://remindme.prateekvachher.in\n\nThanks for registering, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekvachher.in\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, authenticationid,username,emailid)
             ), "\r\n")
-
     try :
-
-
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
         server.set_debuglevel(True)
         server.esmtp_features['auth'] = 'LOGIN PLAIN'
         server.login('remindme@prateekvachher.in', password)
         server.sendmail(fromaddr, toaddrs, str(BODY))
         server.quit()
-
     except smtplib.SMTPServerDisconnected :
         print "smtplib.SMTPServerDisconnected"
     except smtplib.SMTPResponseException, e:
@@ -230,3 +223,50 @@ def mail_engine_authentication(name,emailid,authenticationid):
         print "Exception", e
         print traceback.format_exc()
         print sys.exc_info()[0]
+
+
+def mail_engine_reminder(name,reminder,emailid):
+    import smtplib
+    import string
+    import traceback
+    import sys
+    fromaddr = 'reminder@prateekvachher.in'
+    password = 'Welcome123'
+    toaddrs  = emailid
+    server_smtp = 'host5.dnsinweb.com'
+    port_smtp = 465
+    BODY = string.join((
+            "From: %s" % fromaddr,
+            "To: %s" % toaddrs,
+            "Subject: REMINDER: %s" % reminder,
+            "",
+            'Hello %s, \nThanks for signing up to RemindMe! By having a RemindMe account you can set time based reminders without the need of any 3rd Party Applications. \n\nBefore you access your account, you will need to verify your email address. You can do so by logging into your account and entering the Verification ID as %s. \n\nJust a friendly reminder, your account details are: \nUsername: %s \nEmail ID: %s\nhttp://remindme.prateekvachher.in\n\nThanks for registering, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekvachher.in\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, 'TEST','TEST',emailid)
+            ), "\r\n")
+    try :
+        server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
+        server.set_debuglevel(True)
+        server.esmtp_features['auth'] = 'LOGIN PLAIN'
+        server.login('remindme@prateekvachher.in', password)
+        server.sendmail(fromaddr, toaddrs, str(BODY))
+        server.quit()
+    except smtplib.SMTPServerDisconnected :
+        print "smtplib.SMTPServerDisconnected"
+    except smtplib.SMTPResponseException, e:
+        print "smtplib.SMTPResponseException: " + str(e.smtp_code) + " " + str(e.smtp_error)
+    except smtplib.SMTPSenderRefused:
+        print "smtplib.SMTPSenderRefused"
+    except smtplib.SMTPRecipientsRefused:
+        print "smtplib.SMTPRecipientsRefused"
+    except smtplib.SMTPDataError:
+        print "smtplib.SMTPDataError"
+    except smtplib.SMTPConnectError:
+        print "smtplib.SMTPConnectError"
+    except smtplib.SMTPHeloError:
+        print "smtplib.SMTPHeloError"
+    except smtplib.SMTPAuthenticationError:
+        print "smtplib.SMTPAuthenticationError"
+    except Exception, e :
+        print "Exception", e
+        print traceback.format_exc()
+        print sys.exc_info()[0]
+

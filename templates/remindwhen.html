@@ -54,6 +54,18 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="#page-top">Remind Me</a></div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li class="page-scroll">
+                                        <a>Hello {{ name1 }}!</a>
+                                    </li>
+                                    <li class="page-scroll">
+                                         <form action="" method="post">
+    				<a><input class="btn btn-success"type="submit" name="ok" placeholder="Log Out" value="Log Out" align="right"></a>
+</form>
+                                    </li>
+                                </ul>
+                            </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
 
@@ -64,26 +76,35 @@
 
     <!-- Header -->
     <header>
-
-        <div class="container">
-
-                                                            <img src="http://www.myiconfinder.com/uploads/iconsets/256-256-4d0e5b9f9bc31c22ccb0deccd4b9b625.png" height="250">
 <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+<br>
+                                                            <img src="http://www.myiconfinder.com/uploads/iconsets/256-256-4d0e5b9f9bc31c22ccb0deccd4b9b625.png" height="230">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="intro-text">
-                    <form action="" method="post">
+                    <form action="" method="post" align="right">
                         <font color="black"> <h1>When should we remind you? </h1> </font>
-                        <h3><font face="courier"><input type="datetime-local" name="Reminder" style="font-size:40px; color: #000000;"></font></h3>
+
+                        <h3>Date (DD-MM-YYYY)<font face="courier"><input type="text" name="Date" style="font-size:40px; color: #000000;"></font></h3>
+                        <h3>Time (HH:MM)<font face="courier"><input type="text" name="Time" width="10" style="font-size:40px; color: #000000;"></font></h3>
+
                         <b><font face="helvetica" size="4"><input type="submit" style="color: #000000;" placeholder="Next" name="Next" value="NEXT"></font></b>
                     </form>
                         
 
                     <h3>{{ error }}</h3>
+                        <br>
+                <br>
                     </div>
                 </div>
+
             </div>
-        </div>
     </header>
 
     <!-- Footer -->
