@@ -18,7 +18,10 @@ def dndchecker(number):
     url = "http://dndchecker.railsroot.com/api?mobile_number="+str(number)
     req = urllib2.urlopen(url)
     final = json.load(req)
-    return final
+    if final['status'] == 'Never':
+        return False
+    else:
+        return True
 
 def getdate():
     import time
@@ -40,8 +43,8 @@ def putreminder(username, data, date, time):
     import pymysql
     db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
     cursor = db.cursor()
-    sql = "INSERT INTO reminder (username, reminder_data,reminder_date,reminder_time) " \
-          "VALUES ('%s','%s','%s','%s')" % (username,data,date,time)
+    sql = "INSERT INTO reminder (username, reminder_data,reminder_date,reminder_time,notif) " \
+          "VALUES ('%s','%s','%s','%s','%d')" % (username,data,date,time,0)
     try:
         cursor.execute(sql)
         db.commit()
@@ -120,6 +123,19 @@ def getname(username):
         cursor.execute(sql)
         results = cursor.fetchall()
         return results[0][0]
+    except:
+        print "ERROR CHECKING Name"
+
+def getemail(username):
+    import pymysql
+    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    cursor = db.cursor()
+    sql = "SELECT * FROM userdb \
+           WHERE username = '%s'" % (username.lower())
+    try:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        return results[0][4]
     except:
         print "ERROR CHECKING Name"
 
@@ -225,7 +241,7 @@ def mail_engine_authentication(name,username,emailid,authenticationid):
         print sys.exc_info()[0]
 
 
-def mail_engine_reminder(name,reminder,emailid):
+def mail_engine_reminder(name,reminder,date,time,emailid):
     import smtplib
     import string
     import traceback
@@ -238,9 +254,9 @@ def mail_engine_reminder(name,reminder,emailid):
     BODY = string.join((
             "From: %s" % fromaddr,
             "To: %s" % toaddrs,
-            "Subject: REMINDER: %s" % reminder,
+            "Subject: REMINDER: %s" % reminder.upper(),
             "",
-            'Hello %s, \nThanks for signing up to RemindMe! By having a RemindMe account you can set time based reminders without the need of any 3rd Party Applications. \n\nBefore you access your account, you will need to verify your email address. You can do so by logging into your account and entering the Verification ID as %s. \n\nJust a friendly reminder, your account details are: \nUsername: %s \nEmail ID: %s\nhttp://remindme.prateekvachher.in\n\nThanks for registering, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekvachher.in\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, 'TEST','TEST',emailid)
+            'Hello %s, \n\nThis is an automated reminder mail for the reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s\nTo add more reminders, visit http://remindme.prateekvachher.in\n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekvachher.in\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, reminder.upper(), reminder.upper(),date,time)
             ), "\r\n")
     try :
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)

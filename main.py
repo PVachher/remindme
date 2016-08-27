@@ -1,7 +1,7 @@
 from flask import *
 from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth, putreminder, getdate,gettime
 import random
-from smsengine import dndsms
+from smsengine import *
 import time
 app = Flask(__name__)
 database = {}
