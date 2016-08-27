@@ -12,6 +12,14 @@ def add_user(first_name, last_name, username, mobile, email, password,authcode,a
         db.rollback()
     db.close()
 
+def dndchecker(number):
+    import urllib2
+    import json
+    url = "http://dndchecker.railsroot.com/api?mobile_number="+str(number)
+    req = urllib2.urlopen(url)
+    final = json.load(req)
+    return final
+
 def getdate():
     import time
     localtime = time.localtime(time.time())
@@ -222,4 +230,3 @@ def mail_engine_authentication(name,emailid,authenticationid):
         print "Exception", e
         print traceback.format_exc()
         print sys.exc_info()[0]
-
