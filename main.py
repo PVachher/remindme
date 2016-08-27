@@ -1,6 +1,7 @@
 from flask import *
 from modules import checklogin, add_user, checkusername, checkmob, checkemail, getname, mail_engine_authentication, checkauth, getauthcode, updateauth, putreminder, getdate,gettime
 import random
+from smsengine import dndsms
 import time
 app = Flask(__name__)
 database = {}
@@ -50,6 +51,23 @@ def remindabout():
             return redirect(url_for('home'))
     return render_template('remindabout.html', name=username_session,name1=getname(username_session))
 
+@app.route('/registersuccessful')
+def registersuccess():
+    return render_template('registersuccess.html')
+
+@app.route('/remindersuccessful',methods=['GET','POST'])
+def remindersuccess():
+    if 'username' in session:
+        if request.method == 'POST':
+            if 'ok' in request.form:
+                session.clear()
+                return redirect(url_for("login"))
+        else:
+            username_session = escape(session['username']).capitalize()
+            return render_template('remindersuccess.html',name1=username_session)
+    else:
+        return redirect(url_for('home'))
+
 @app.route('/remindwhen', methods=['GET','POST'])
 def remindwhen():
     global database
@@ -62,27 +80,31 @@ def remindwhen():
                     session.clear()
                     return redirect(url_for("login"))
                 else:
-                    got = request.form['Reminder']
-                    final = ""
-                    date = got[:10]
-                    time1 = got[11:]
-                    z = date.split('-')
-                    final += z[-1]
-                    final += ":"
-                    final += str(int(z[-2]))
-                    final += ":"
-                    final += z[-3]
-                    time1 += ":00"
-                    print final, getdate()
-                    print time1, gettime()
-                    final = final[::-1]
-                    file1 = getdate()[::-1]
-                    if final > file1:
-                        putreminder(username_session.lower(),database[username_session],date, time1)
-                    elif final == file1 and time1 > gettime():
-                        putreminder(username_session.lower(),database[username_session],date, time1)
+                    if request.form['Date'][2] == '-' and request.form['Date'][5] == '-' and request.form['Time'][2]==':':
+                        final = ""
+                        date = request.form['Date']
+                        time1 = request.form['Time']
+                        z = date.split('-')
+                        final += z[-3]
+                        final += ":"
+                        final += str(int(z[-2]))
+                        final += ":"
+                        final += z[-1]
+                        time1 += ":00"
+                        file1 = getdate()
+                        print final, getdate()
+                        print time1, gettime()
+
+                        if (final > file1) or (final == file1 and time1 > gettime()):
+                            putreminder(username_session.lower(),database[username_session],date, time1)
+                            return redirect(url_for('remindersuccess'))
+                        elif final == file1 and time1 > gettime():
+                            putreminder(username_session.lower(),database[username_session],date, time1)
+                            return redirect(url_for('remindersuccess'))
+                        else:
+                            error = "Invalid Date/Time"
                     else:
-                        error = "Invalid Date/Time"
+                        error = "Invalid Entered Date/Time Structure"
         else:
             return redirect(url_for('home'))
     return render_template('remindwhen.html', name=username_session,name1=getname(username_session),error=error)
@@ -123,7 +145,7 @@ def register():
                             generatedid = random.randint(1000,9999)
                             add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'],str(generatedid),str(0))
                             mail_engine_authentication(request.form['FirstName'],request.form['username'],request.form['email'], str(generatedid))
-                            return redirect(url_for('login'))
+                            return redirect(url_for('registersuccess'))
                         else:
                             error = "Passwords Don't Match"
                             v1 = request.form['FirstName']
