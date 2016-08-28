@@ -1,4 +1,4 @@
-import time
+import time, pytz
 from modules import mail_engine_reminder, getname, getemail
 database = {}
 def difference_time(time_to_reach,time_reached):
@@ -8,6 +8,35 @@ def difference_time(time_to_reach,time_reached):
     z2 =int(time_to_reach[-2]) - int(time_reached[1])
     z3 = int(time_to_reach[-1]) - int(time_reached[2])
     return z1*(3600)+z2*(60) + z3
+
+def time_to_ist(naive, timezone="Asia/Kolkata"):
+    local = pytz.timezone(timezone)
+    local_dt = local.localize(naive, is_dst=None)
+    utc_dt = local_dt.astimezone(pytz.utc)
+    return utc_dt
+
+def ist_to_time(naive, timezone="Asia/Kolkata"):
+    return naive.replace(tzinfo=pytz.utc).astimezone(pytz.timezone(timezone))
+
+def convert_to_ist(timestr):
+    year = timestr[0]
+    month = timestr[1]
+    day = timestr[2]
+    hour=timestr[3]
+    minute=timestr[4]
+    minute += 30
+    if minute > 60:
+        minute -= 60
+        hour += 1
+    hour += 5
+    if hour > 24:
+        day += 1
+        hour -= 24
+    if day >
+
+
+    return [timestr[0],timestr[1],day,hour,minute,timestr[5]]
+
 def getdate():
     localtime = time.localtime(time.time())
     year = localtime[0]
@@ -76,6 +105,7 @@ while True:
     time1 = getdata()
     time1.sort()
     localtime = time.localtime(time.time())
+    print "LOCALTIME:", localtime
     time_reached = str(localtime[3]) + ":" + str(localtime[4]) + ":" + str(localtime[5])
     for k in time1:
         print time_reached
