@@ -4,10 +4,10 @@ def mail_engine_authentication(name,emailid,authenticationid):
     import traceback
     import sys
 
-    fromaddr = 'remindme@prateekvachher.in'
+    fromaddr = 'remindme@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
-    server_smtp = 'host5.dnsinweb.com'
+    server_smtp = 'host3.dnsinweb.com'
     port_smtp = 465
 
     msg = 'Test message ^^'
@@ -25,7 +25,7 @@ def mail_engine_authentication(name,emailid,authenticationid):
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
         server.set_debuglevel(True)
         server.esmtp_features['auth'] = 'LOGIN PLAIN'
-        server.login('remindme@prateekvachher.in', password)
+        server.login('remindme@prateekv.com', password)
         server.sendmail(fromaddr, toaddrs, str(BODY))
         server.quit()
 

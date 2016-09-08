@@ -200,23 +200,24 @@ def mail_engine_authentication(name,username,emailid,authenticationid):
     import string
     import traceback
     import sys
-    fromaddr = 'remindme@prateekvachher.in'
+    fromaddr = 'remindme@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
-    server_smtp = 'host5.dnsinweb.com'
+    server_smtp = 'host3.dnsinweb.com'
     port_smtp = 465
     BODY = string.join((
             "From: %s" % fromaddr,
             "To: %s" % toaddrs,
             "Subject: %s" % 'Email Verification Required' ,
             "",
-            'Hello %s, \nThanks for signing up to RemindMe! By having a RemindMe account you can set time based reminders without the need of any 3rd Party Applications. \n\nBefore you access your account, you will need to verify your email address. You can do so by logging into your account and entering the Verification ID as %s. \n\nJust a friendly reminder, your account details are: \nUsername: %s \nEmail ID: %s\nhttp://remindme.prateekvachher.in\n\nThanks for registering, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekvachher.in\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, authenticationid,username,emailid)
+            'Hello %s, \nThanks for signing up to RemindMe! By having a RemindMe account you can set time based reminders without the need of any 3rd Party Applications. \n\nBefore you access your account, you will need to verify your email address. You can do so by logging into your account and entering the Verification ID as %s. \n\nJust a friendly reminder, your account details are: \nUsername: %s \nEmail ID: %s\nhttp://remindme.prateekv.com'
+            '\n\nThanks for registering, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekv.com\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, authenticationid,username,emailid)
             ), "\r\n")
     try :
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
         server.set_debuglevel(True)
         server.esmtp_features['auth'] = 'LOGIN PLAIN'
-        server.login('remindme@prateekvachher.in', password)
+        server.login('remindme@prateekv.com', password)
         server.sendmail(fromaddr, toaddrs, str(BODY))
         server.quit()
     except smtplib.SMTPServerDisconnected :
@@ -246,23 +247,23 @@ def mail_engine_reminder(name,reminder,date,time,emailid):
     import string
     import traceback
     import sys
-    fromaddr = 'reminder@prateekvachher.in'
+    fromaddr = 'reminder@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
-    server_smtp = 'host5.dnsinweb.com'
+    server_smtp = 'host3.dnsinweb.com'
     port_smtp = 465
     BODY = string.join((
             "From: %s" % fromaddr,
             "To: %s" % toaddrs,
             "Subject: REMINDER: %s" % reminder.upper(),
             "",
-            'Hello %s, \n\nThis is an automated reminder mail for the reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s\nTo add more reminders, visit http://remindme.prateekvachher.in\n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekvachher.in\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, reminder.upper(), reminder.upper(),date,time)
+            'Hello %s, \n\nThis is an automated reminder mail for the reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s\nTo add more reminders, visit http://remindme.prateekv.com\n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekv.com\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, reminder.upper(), reminder.upper(),date,time)
             ), "\r\n")
     try :
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
         server.set_debuglevel(True)
         server.esmtp_features['auth'] = 'LOGIN PLAIN'
-        server.login('remindme@prateekvachher.in', password)
+        server.login('remindme@prateekv.com', password)
         server.sendmail(fromaddr, toaddrs, str(BODY))
         server.quit()
     except smtplib.SMTPServerDisconnected :
