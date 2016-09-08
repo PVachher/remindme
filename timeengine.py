@@ -27,7 +27,7 @@ def gettime():
 def getdata():
     global database
     import pymysql
-    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.105.87", "root", "Welcome123", "remindme")
     cursor = db.cursor()
     data = []
     sql = "SELECT * FROM `reminder` WHERE `notif`=0;"
@@ -63,7 +63,7 @@ def getdata():
 
 def updatedb(username,data,date,time):
     import pymysql
-    db = pymysql.connect("52.66.46.128", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.105.87", "root", "Welcome123", "remindme")
     cursor = db.cursor()
     sql = "UPDATE reminder SET notif= 1\
                    WHERE username = '%s' AND reminder_data = '%s' AND reminder_date = '%s' AND reminder_time='%s'" % (username,data,date,time)
