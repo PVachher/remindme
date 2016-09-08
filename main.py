@@ -177,4 +177,4 @@ def register():
         return render_template('register.html', error=error, v1=v1, v2=v2, v3=v3, v4=v4, v5=v5)
 
 if __name__ == '__main__':
-	app.run(host='0.0.0.0',debug=True)
+	app.run(host='0.0.0.0',port=5001,debug=True)
