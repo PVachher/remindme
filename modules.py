@@ -242,6 +242,7 @@ def mail_engine_authentication(name,username,emailid,authenticationid):
 
 
 def mail_engine_reminder(name,reminder,date,time,emailid):
+
     import smtplib
     import string
     import traceback
@@ -256,7 +257,7 @@ def mail_engine_reminder(name,reminder,date,time,emailid):
             "To: %s" % toaddrs,
             "Subject: REMINDER: %s" % reminder.upper(),
             "",
-            'Hello %s, \n\nThis is a remind mail for a reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s \n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\nremindme.prateekv.com\ncontact@prateekv.com\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher' % (name,reminder,reminder,date,time)
+            'Hello %s, \n\nThis is a remind mail for a reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s \n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekv.com\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher' % (name,reminder,reminder,date,time)
             ), "\r\n")
     try :
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
