@@ -109,9 +109,8 @@ def remindwhen():
                             final += ":"
                             final += z[-1]
                             time1 += ":00"
-                            file1 = getdate()
-                            print final, getdate()
-                            print time1, gettime()
+                            putreminder(username_session.lower(), database[username_session], date, time1)
+                            return redirect(url_for('remindersuccess'))
                         else:
                             error = "Invalid Entered Date/Time Structure"
                     else:
