@@ -112,15 +112,6 @@ def remindwhen():
                             file1 = getdate()
                             print final, getdate()
                             print time1, gettime()
-
-                            if (final > file1) or (final == file1 and time1 > gettime()):
-                                putreminder(username_session.lower(),database[username_session],date, time1)
-                                return redirect(url_for('remindersuccess'))
-                            elif final == file1 and time1 > gettime():
-                                putreminder(username_session.lower(),database[username_session],date, time1)
-                                return redirect(url_for('remindersuccess'))
-                            else:
-                                error = "Invalid Date/Time"
                         else:
                             error = "Invalid Entered Date/Time Structure"
                     else:
