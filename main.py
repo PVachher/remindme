@@ -5,7 +5,8 @@ from smsengine import *
 import time
 app = Flask(__name__)
 database = {}
-
+SITE_KEY = '6LdHVgcUAAAAAG3xGivGzwNRjSciGPB7LEooXEv0'
+SECRET_KEY = '6LdHVgcUAAAAAEsedzk955ipNrNKQlTwzX70xISL'
 @app.route('/', methods=['GET','POST'])
 def home():
     error = ""
@@ -31,6 +32,21 @@ def home():
 
     return redirect(url_for('login'))
 
+
+def checkRecaptcha(response, secretkey):
+    import urllib2
+    url = 'https://www.google.com/recaptcha/api/siteverify?'
+    url = url + 'secret=' +secretkey
+    url = url + '&response=' +response
+    try:
+        jsonobj = json.loads(urllib2.urlopen(url).read())
+	print jsonobj
+        if jsonobj['success']:
+            return True
+        else:
+            return False
+    except Exception as e:
+        return False
 
 @app.route('/remindabout', methods=['GET','POST'])
 def remindabout():
@@ -142,10 +158,19 @@ def register():
                 if checkmob(request.form['mobile']) == False:
                     if checkemail(request.form['email']) == False:
                         if request.form['password'] == request.form['repassword']:
-                            generatedid = random.randint(1000,9999)
-                            add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'],str(generatedid),str(0))
-                            mail_engine_authentication(request.form['FirstName'],request.form['username'],request.form['email'], str(generatedid))
-                            return redirect(url_for('registersuccess'))
+                            response = request.form.get('g-recaptcha-response')
+                            if checkRecaptcha(response,SECRET_KEY):
+                                generatedid = random.randint(1000,9999)
+                                add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'],str(generatedid),str(0))
+                                mail_engine_authentication(request.form['FirstName'],request.form['username'],request.form['email'], str(generatedid))
+                                return redirect(url_for('registersuccess'))
+                            else:
+                                error = 'Invalid Captcha'
+                                v1 = request.form['FirstName']
+                                v2 = request.form['LastName']
+                                v3 = request.form['username']
+                                v4 = request.form['mobile']
+                                v5 = request.form['email']
                         else:
                             error = "Passwords Don't Match"
                             v1 = request.form['FirstName']
@@ -174,6 +199,7 @@ def register():
                 v3 = request.form['username']
                 v4 = request.form['mobile']
                 v5 = request.form['email']
+
         return render_template('register.html', error=error, v1=v1, v2=v2, v3=v3, v4=v4, v5=v5)
 
 if __name__ == '__main__':

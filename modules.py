@@ -194,7 +194,6 @@ def checklogin(username,password):
     elif flag == 2:
         return "NoUser"
     db.close()
-
 def mail_engine_authentication(name,username,emailid,authenticationid):
     import smtplib
     import string
