@@ -246,7 +246,7 @@ def mail_engine_reminder(name,reminder,date,time,emailid):
     import string
     import traceback
     import sys
-    fromaddr = 'reminder@prateekv.com'
+    fromaddr = 'remindme@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
     server_smtp = 'host3.dnsinweb.com'
@@ -256,7 +256,7 @@ def mail_engine_reminder(name,reminder,date,time,emailid):
             "To: %s" % toaddrs,
             "Subject: REMINDER: %s" % reminder.upper(),
             "",
-            'Hello %s, \n\nThis is an automated reminder mail for the reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s\nTo add more reminders, visit http://remindme.prateekv.com\n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\ncontact@prateekv.com\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher'  % (name, reminder.upper(), reminder.upper(),date,time)
+            'Hello %s, \n\nThis is a remind mail for a reminder set by you for %s. The details for the reminder are as follows: \nReminder Text: %s\nReminder Date: %s\nReminder Time: %s \n\nThanks for using this service, I appreciate your support!\n\n--\nPrateek Vachher\nDeveloper-RemindMe\nremindme.prateekv.com\ncontact@prateekv.com\n\nhttps://www.facebook.com/pvachher\nhttps://github.com/PVachher' % (name,reminder,reminder,date,time)
             ), "\r\n")
     try :
         server = smtplib.SMTP_SSL(host=server_smtp, port=port_smtp)
@@ -285,4 +285,3 @@ def mail_engine_reminder(name,reminder,date,time,emailid):
         print "Exception", e
         print traceback.format_exc()
         print sys.exc_info()[0]
-
