@@ -5,8 +5,8 @@ from smsengine import *
 import time
 app = Flask(__name__, static_url_path='/static')
 database = {}
-SITE_KEY = '6LcwPQoUAAAAANGPchiHVZVOLKE5Y-iN6BzYAV7x'
-SECRET_KEY = '6LcwPQoUAAAAABaQQDUqqL-MrimAjmYCW8_UxGSg'
+SITE_KEY = '6LeCQgoUAAAAAJTKVmw--WI9sZdMDJqnXLsDVMyU'
+SECRET_KEY = '6LeCQgoUAAAAAG10j2-q3nBB59xwBpYiiOeEEY-J'
 @app.route('/', methods=['GET','POST'])
 def home():
     error = ""
