@@ -3,7 +3,7 @@ from modules import checklogin, add_user, checkusername, checkmob, checkemail, g
 import random
 from smsengine import *
 import time
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static')
 database = {}
 SITE_KEY = '6LdHVgcUAAAAAG3xGivGzwNRjSciGPB7LEooXEv0'
 SECRET_KEY = '6LdHVgcUAAAAAEsedzk955ipNrNKQlTwzX70xISL'
