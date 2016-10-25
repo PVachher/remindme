@@ -2,7 +2,7 @@ import time
 from modules import mail_engine_reminder, getemail, getname
 def updatedb(username,data,date,time):
     import pymysql
-    db = pymysql.connect("52.66.105.87", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
     cursor = db.cursor()
     sql = "UPDATE reminder SET notif= 1\
                    WHERE username = '%s' AND reminder_data = '%s' AND reminder_date = '%s' AND reminder_time='%s'" % (username,data,date,time)
@@ -36,7 +36,7 @@ def gettime():
 
 def getdata():
     import pymysql
-    db = pymysql.connect("52.66.105.87", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
     cursor = db.cursor()
     database = {}
     sql = "SELECT * FROM `reminder` WHERE `notif`=0;"
