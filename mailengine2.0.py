@@ -50,4 +50,3 @@ def mail_engine_authentication(name,emailid,authenticationid):
         print traceback.format_exc()
         print sys.exc_info()[0]
 
-mail_engine_authentication('Ashwani','ashwanivachher@gmail.com','1234')
