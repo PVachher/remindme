@@ -7,7 +7,7 @@ def mail_engine_authentication(name,emailid,authenticationid):
     fromaddr = 'remindme@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
-    server_smtp = 'host3.dnsinweb.com'
+    server_smtp = 'server27.hostingraja.in'
     port_smtp = 465
 
     msg = 'Test message ^^'
@@ -49,3 +49,5 @@ def mail_engine_authentication(name,emailid,authenticationid):
         print "Exception", e
         print traceback.format_exc()
         print sys.exc_info()[0]
+
+mail_engine_authentication('Ashwani','ashwanivachher@gmail.com','1234')
