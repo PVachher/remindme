@@ -96,25 +96,22 @@ def remindwhen():
                     session.clear()
                     return redirect(url_for("login"))
                 else:
-                    response = request.form.get('g-recaptcha-response')
-                    if checkRecaptcha(response, SECRET_KEY):
-                        if request.form['Date'][2] == '-' and request.form['Date'][5] == '-' and request.form['Time'][2]==':':
-                            final = ""
-                            date = request.form['Date']
-                            time1 = request.form['Time']
-                            z = date.split('-')
-                            final += z[-3]
-                            final += ":"
-                            final += str(int(z[-2]))
-                            final += ":"
-                            final += z[-1]
-                            time1 += ":00"
-                            putreminder(username_session.lower(), database[username_session], date, time1)
-                            return redirect(url_for('remindersuccess'))
-                        else:
-                            error = "Invalid Entered Date/Time Structure"
+                    if request.form['Date'][2] == '-' and request.form['Date'][5] == '-' and request.form['Time'][2]==':':
+                        final = ""
+                        date = request.form['Date']
+                        time1 = request.form['Time']
+                        z = date.split('-')
+                        final += z[-3]
+                        final += ":"
+                        final += str(int(z[-2]))
+                        final += ":"
+                        final += z[-1]
+                        time1 += ":00"
+                        putreminder(username_session.lower(), database[username_session], date, time1)
+                        return redirect(url_for('remindersuccess'))
                     else:
-                        error = 'Invalid Captcha'
+                        error = "Invalid Entered Date/Time Structure"
+
         else:
             return redirect(url_for('home'))
     return render_template('remindwhen.html', name=username_session,name1=getname(username_session),error=error)
