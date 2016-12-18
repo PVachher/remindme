@@ -199,10 +199,11 @@ def mail_engine_authentication(name,username,emailid,authenticationid):
     import string
     import traceback
     import sys
+
     fromaddr = 'remindme@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
-    server_smtp = 'host3.dnsinweb.com'
+    server_smtp = 'server27.hostingraja.in'
     port_smtp = 465
     BODY = string.join((
             "From: %s" % fromaddr,
@@ -250,7 +251,7 @@ def mail_engine_reminder(name,reminder,date,time,emailid):
     fromaddr = 'remindme@prateekv.com'
     password = 'Welcome123'
     toaddrs  = emailid
-    server_smtp = 'host3.dnsinweb.com'
+    server_smtp = 'server27.hostingraja.in'
     port_smtp = 465
     BODY = string.join((
             "From: %s" % fromaddr,

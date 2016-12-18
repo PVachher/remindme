@@ -120,7 +120,6 @@ def remindwhen():
     return render_template('remindwhen.html', name=username_session,name1=getname(username_session),error=error)
 
 
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'username' in session:
@@ -143,6 +142,7 @@ def login():
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RT'
 
 
+
 @app.route('/register', methods=['GET','POST'])
 def register():
         v1 = v2 = v3 =v4 = v5 = ""
@@ -158,6 +158,7 @@ def register():
                                 add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'],str(generatedid),str(0))
                                 mail_engine_authentication(request.form['FirstName'],request.form['username'],request.form['email'], str(generatedid))
                                 return redirect(url_for('registersuccess'))
+
                             else:
                                 error = 'Invalid Captcha'
                                 v1 = request.form['FirstName']
