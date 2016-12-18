@@ -36,7 +36,7 @@ def gettime():
 
 def getdata():
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     database = {}
     sql = "SELECT * FROM `reminder` WHERE `notif`=0;"

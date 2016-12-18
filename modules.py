@@ -1,6 +1,6 @@
 def add_user(first_name, last_name, username, mobile, email, password,authcode,authlevel):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "INSERT INTO userdb (FirstName,LastName,Username,MobileNumber,Email,Password,authcode,authlevel) " \
           "VALUES ('%s','%s','%s','%d','%s','%s','%s','%s')" % (first_name, last_name, username,mobile,email,password,authcode,authlevel)
@@ -41,7 +41,7 @@ def gettime():
 
 def putreminder(username, data, date, time):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "INSERT INTO reminder (username, reminder_data,reminder_date,reminder_time,notif) " \
           "VALUES ('%s','%s','%s','%s','%d')" % (username,data,date,time,0)
@@ -56,7 +56,7 @@ def putreminder(username, data, date, time):
 
 def updateauth(username):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "UPDATE userdb SET authlevel= 1\
                    WHERE username = '%s'" % (username.lower())
@@ -69,7 +69,7 @@ def updateauth(username):
 
 def getauthcode(username):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
                    WHERE username = '%s'" % (username.lower())
@@ -82,7 +82,7 @@ def getauthcode(username):
 
 def checkauth(username):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
                WHERE username = '%s'" % (username.lower())
@@ -99,7 +99,7 @@ def checkauth(username):
 
 def checkusername(username):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
            WHERE username = '%s'" % (username.lower())
@@ -115,7 +115,7 @@ def checkusername(username):
 
 def getname(username):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
            WHERE username = '%s'" % (username.lower())
@@ -128,7 +128,7 @@ def getname(username):
 
 def getemail(username):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
            WHERE username = '%s'" % (username.lower())
@@ -141,7 +141,7 @@ def getemail(username):
 
 def checkmob(mobile):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
            WHERE MobileNumber = '%s'" % str(mobile)
@@ -157,7 +157,7 @@ def checkmob(mobile):
 
 def checkemail(email):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
            WHERE Email = '%s'" % (email)
@@ -173,7 +173,7 @@ def checkemail(email):
 
 def checklogin(username,password):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "Welcome123", "remindme")
+    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
     cursor = db.cursor()
     sql = "SELECT * FROM userdb \
            WHERE username = '%s'" % (username.lower())
