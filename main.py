@@ -149,14 +149,14 @@ def register():
                 if checkmob(request.form['mobile']) == False:
                     if checkemail(request.form['email']) == False:
                         if request.form['password'] == request.form['repassword']:
-                            #response = request.form.get('g-recaptcha-response')
-                            #if checkRecaptcha(response,SECRET_KEY):
+                            response = request.form.get('g-recaptcha-response')
+                            if checkRecaptcha(response,SECRET_KEY):
                                 generatedid = random.randint(1000,9999)
                                 add_user(request.form['FirstName'],request.form['LastName'],request.form['username'],int(request.form['mobile']),request.form['email'],request.form['password'],str(generatedid),str(0))
                                 mail_engine_authentication(request.form['FirstName'],request.form['username'],request.form['email'], str(generatedid))
                                 return redirect(url_for('registersuccess'))
 
-                            #else:
+                            else:
                                 error = 'Invalid Captcha'
                                 v1 = request.form['FirstName']
                                 v2 = request.form['LastName']
