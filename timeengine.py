@@ -1,4 +1,5 @@
 import time
+from base64 import b64decode as ck
 from modules import mail_engine_reminder, getname, getemail
 database = {}
 def difference_time(time_to_reach,time_reached):
@@ -27,7 +28,7 @@ def gettime():
 def getdata():
     global database
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
+    db = pymysql.connect("52.66.7.114", "root", ck('V2VsY29tZUAxMjM0'), "remindme")
     cursor = db.cursor()
     data = []
     sql = "SELECT * FROM `reminder` WHERE `notif`=0;"
@@ -63,7 +64,7 @@ def getdata():
 
 def updatedb(username,data,date,time):
     import pymysql
-    db = pymysql.connect("52.66.149.217", "root", "root", "remindme")
+    db = pymysql.connect("52.66.7.114", "root", ck('V2VsY29tZUAxMjM0'), "remindme")
     cursor = db.cursor()
     sql = "UPDATE reminder SET notif= 1\
                    WHERE username = '%s' AND reminder_data = '%s' AND reminder_date = '%s' AND reminder_time='%s'" % (username,data,date,time)
